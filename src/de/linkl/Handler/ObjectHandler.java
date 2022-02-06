@@ -10,7 +10,6 @@ public class ObjectHandler {
 
     public LinkedList<GameObject>objects = new LinkedList<>();
     private GameObject tempObject;
-    private GameObject lastObject;
 
     public void render(Graphics g) {                                                    // führt für jedes Object in der LinkedList die render()-Methode aus
         for (GameObject object : objects) {

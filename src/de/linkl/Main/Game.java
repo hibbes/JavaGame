@@ -7,8 +7,12 @@ import de.linkl.Handler.LevelLoader;
 import de.linkl.Handler.ObjectHandler;
 import de.linkl.State.ObjectID;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Objects;
 
 public class Game extends Canvas implements Runnable{
 
@@ -20,10 +24,16 @@ public class Game extends Canvas implements Runnable{
     ObjectHandler objectHandler;
     KeyHandler keyHandler;
     LevelLoader levelLoader;
+    BufferedImage background;
 
     public void init() {
         width = this.getWidth();
         height = this.getHeight();
+        /*try {
+            background = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/de/linkl/Graphics/background.png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
 
         keyHandler = new KeyHandler();
         objectHandler = new ObjectHandler();
@@ -73,6 +83,7 @@ public class Game extends Canvas implements Runnable{
 
     public void tick() {                                                // "updatet" die Informationen bei jedem Tick
         objectHandler.tick();
+
         if (keyHandler.num2Pressed) {
             levelLoader.load("rsc/Level/Level2.txt");
         }
@@ -90,9 +101,9 @@ public class Game extends Canvas implements Runnable{
         }
         Graphics g = bs.getDrawGraphics();
 
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0, width, height);
 
+        //g.drawImage(background, 0, 0, Game.width, Game.height, null);
+        g.fillRect(0,0,width,height);
         objectHandler.render(g);
 
         g.dispose();                                                    // dispose() ist eine Methode, die die benötigten Systemressourcen,
@@ -100,6 +111,6 @@ public class Game extends Canvas implements Runnable{
     }
 
     public static void main(String[] args) {
-        new Window(1280, 720, "Java Game", new Game());
+        new Window(1280, 710, "Java Game", new Game());
     }
 }

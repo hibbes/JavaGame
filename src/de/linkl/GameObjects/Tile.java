@@ -11,27 +11,29 @@ import java.util.Objects;
 
 public class Tile extends GameObject {
 
+    BufferedImage fullimage;
     BufferedImage image;
 
     public Tile(int x, int y, ObjectID id) {
         super(x, y, id);
         this.id = id;
-        width = 64;                                                     // nur 64x64 Bilder verwenden!
-        height = 64;
-        if (id == ObjectID.BACKGROUND) {
-            try {
-                image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/de/linkl/Graphics/spaceBackground.png")));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        width = 32;
+        height = 32;
+        try {
+            fullimage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/de/linkl/Graphics/tileset.png")));
+            image = fullimage.getSubimage(32, 0, 32, 32);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     @Override
     public void render(Graphics g) {
-        if (id == ObjectID.BACKGROUND) {
+
+        if (!(image == null)) {
             g.drawImage(image, x, y, width, height, null);
-        } else {
+        }
+        else {
             g.setColor(Color.BLACK);
             g.fillRect(x, y, width, height);
         }

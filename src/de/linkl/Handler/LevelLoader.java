@@ -44,7 +44,7 @@ public class LevelLoader {
                 while (scanner.hasNextInt()) {                                                              // "während es ein nächstes Zeichen (int) gibt"
                     int object = scanner.nextInt();                                                         // int object meint die aktuelle Zahl die der Scanner gelesen hat
                     nr++;
-                    if (nr == 20) {                                                                         // eine Reihe hat hier genau 20 Zeichen
+                    if (nr == 40) {                                                                         // eine Reihe hat hier genau 20 Zeichen
                         nr = 0;
                         row++;
                     }
@@ -52,9 +52,9 @@ public class LevelLoader {
                     if (object == 0) {
 
                     } else if (object == 1) {
-                        objectHandler.addObject(new Tile(nr*64,row*64, ObjectID.TILE));
+                        objectHandler.addObject(new Tile(nr*32,row*32, ObjectID.TILE));
                     } else if (object == 2) {
-                        objectHandler.addObject(new Player(nr*64, row*64, ObjectID.PLAYER, keyHandler));
+                        objectHandler.addObject(new Player(nr*32, row*32, ObjectID.PLAYER, keyHandler));
                     }
                 }
                 levelloaded = true;
