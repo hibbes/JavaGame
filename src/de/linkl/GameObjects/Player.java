@@ -21,10 +21,11 @@ public class Player extends GameObject {
         super(x, y, id);
         this.id = id;
         this.keyHandler = keyHandler;
+        scale = 0.5;
         try {
             image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/de/linkl/Graphics/player.png")));
-            width = (int)(image.getWidth() * scale);
-            height = (int)(image.getHeight() * scale);
+            width = (int) (image.getWidth() * scale);
+            height = (int) (image.getHeight() * scale);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -60,20 +61,20 @@ public class Player extends GameObject {
 
     @Override
     public Rectangle getBounds() {
-        return new Rectangle(x + (width/6), y + (height/2), width - (width/3), height - (height/2));
+        return new Rectangle(x + (width / 6), y + (height / 2), width - (width / 3), height - (height / 2));
     }
 
     public Rectangle getBoundsTop() {
-        return new Rectangle(x + (width/6), y, width - (width/3), height - (height/2));
+        return new Rectangle(x + (width / 6), y, width - (width / 3), height - (height / 2));
     }
 
-   public Rectangle getBoundsRight() {
-        return new Rectangle(x + (width - (width/10)), y + (height/8), width/10, height - (height/4));
-   }
+    public Rectangle getBoundsRight() {
+        return new Rectangle(x + (width - (width / 10)), y + (height / 8), width / 10, height - (height / 4));
+    }
 
-   public Rectangle getBoundsLeft() {
-        return new Rectangle(x, y + (height/8), width/10, height - (height/4));
-   }
+    public Rectangle getBoundsLeft() {
+        return new Rectangle(x, y + (height / 8), width / 10, height - (height / 4));
+    }
 
     public void collisions(LinkedList<GameObject> objects) {
         for (GameObject tempObject : objects) {
@@ -107,22 +108,24 @@ public class Player extends GameObject {
 
     public void input() {                                                           // wandelt die Eingaben des KeyHandlers in Bewegung um
         if (keyHandler.dPressed) {
-            setSpeedX(10);
+            setSpeedX(5);
         }
         if (keyHandler.aPressed) {
-            setSpeedX(-10);
+            setSpeedX(-5);
         }
         if (!(keyHandler.aPressed || keyHandler.dPressed)) {
             setSpeedX(0);
         }
         if (keyHandler.spacePressed && !jumping) {
             jumping = true;
-            setSpeedY(-18);
+            setSpeedY(-10);
         }
 
         if (keyHandler.altPressed && keyHandler.hPressed) {                         // nur Debugging: schaltet Hitboxen an und ausif (showHitbox) {
             showHitbox = false;
-        } else {showHitbox = true;}
+        } else {
+            showHitbox = true;
+        }
 
     }
 
