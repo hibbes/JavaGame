@@ -26,7 +26,6 @@ public class Window {
         frame.setVisible(true);
 
         game.start();
-
     }
 
 }
