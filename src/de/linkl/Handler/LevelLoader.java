@@ -52,7 +52,7 @@ public class LevelLoader {
                     if (object == 0) {
 
                     } else if (object == 1) {
-                        objectHandler.addObject(new Tile(nr*32,row*32, ObjectID.TILE));
+                        objectHandler.addObject(new Tile(nr*32,row*32, 0, ObjectID.TILE));
                     } else if (object == 2) {
                         objectHandler.addObject(new Player(nr*32, row*32, ObjectID.PLAYER, keyHandler));
                     }

@@ -1,31 +1,93 @@
 package de.linkl.Main;
 
+import com.sun.scenario.Settings;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Window {
+public class Window extends JFrame implements ActionListener {
 
-    public JFrame frame;
     private Dimension dimension;
+
+    private JButton start;
+    private JButton settings;
+    private JButton exit;
+
+    private JLabel Title;
 
     public Window(int width, int height, String title, Game game) {
 
-        frame = new JFrame(title);
         dimension = new Dimension(width, height);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
-        frame.setFocusable(true);
-        frame.requestFocus();
-        frame.setPreferredSize(dimension);
-        frame.setMaximumSize(dimension);
-        frame.setMinimumSize(dimension);
-        frame.setLocationRelativeTo(null);
+        this.setTitle(title);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setResizable(false);
+        this.setFocusable(true);
+        this.requestFocus();
+        this.setPreferredSize(dimension);
+        this.setMaximumSize(dimension);
+        this.setMinimumSize(dimension);
+        this.setLocationRelativeTo(null);
 
-        frame.add(game);
-        frame.setVisible(true);
+        this.add(game);
+        this.setVisible(true);
 
         game.start();
     }
+    public Window(int width, int height, String title) {
 
+        dimension = new Dimension(width, height);
+        this.setTitle(title);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setResizable(false);
+        this.setFocusable(true);
+        this.setLayout(null);
+        this.requestFocus();
+        this.setPreferredSize(dimension);
+        this.setMaximumSize(dimension);
+        this.setMinimumSize(dimension);
+        this.setLocationRelativeTo(null);
+        this.setBackground(Color.RED);
+        this.setVisible(true);
+
+        start = new JButton("Start");
+        start.setBounds(width/2 - 100,40,200,60);
+        start.addActionListener(this);
+        this.add(start);
+
+        exit = new JButton("Exit");
+        exit.setBounds(width/2 - 100,260,200,60);
+        exit.addActionListener(this);
+        this.add(exit);
+
+        settings= new JButton("Settings");
+        settings.setBounds(width/2 - 100,150,200,60);
+        settings.addActionListener(this);
+        this.add(settings);
+
+        /*Title = new JLabel("Java Game");
+        Title.setBounds(width/2, 40, 300, 300);
+        this.add(Title);*/
+
+        Background background = new Background(1280, 710, "/de/linkl/Graphics/menuBackground.jpg");
+        this.add(background);
+
+        this.repaint();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == start) {
+            dispose();
+            new Window(1280, 710, "Java Game", new Game());
+        }
+        if(e.getSource() == settings) {
+
+        }
+        if(e.getSource()== exit) {
+            System.exit(0);
+        }
+    }
 }
