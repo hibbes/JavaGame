@@ -22,7 +22,7 @@ public class Game extends Canvas implements Runnable{
 
     Thread thread;
     ObjectHandler objectHandler;
-    KeyHandler keyHandler;
+    KeyHandler keyHandler = new KeyHandler();
     LevelLoader levelLoader;
     BufferedImage background;
 
@@ -30,7 +30,7 @@ public class Game extends Canvas implements Runnable{
         width = this.getWidth();
         height = this.getHeight();
         /*try {
-            background = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/de/linkl/Graphics/background.png")));
+            background = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/de/linkl/Graphics/menuBackground.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }*/
@@ -111,6 +111,7 @@ public class Game extends Canvas implements Runnable{
     }
 
     public static void main(String[] args) {
-        new Window(1280, 710, "Java Game", new Game());
+        Window menu = new Window(1280, 710, "Java Game");
+        //new Window(1280, 710, "Java Game", new Game());
     }
 }

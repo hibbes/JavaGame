@@ -13,17 +13,25 @@ public class Tile extends GameObject {
 
     BufferedImage fullimage;
     BufferedImage image;
+    int type;
 
-    public Tile(int x, int y, ObjectID id) {
+    public Tile(int x, int y, int type ,ObjectID id) {
         super(x, y, id);
         this.id = id;
+        this.type = type;
         width = 32;
         height = 32;
+
         try {
-            fullimage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/de/linkl/Graphics/tileset.png")));
-            image = fullimage.getSubimage(32, 0, 32, 32);
+            fullimage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/de/linkl/Graphics/ground_tileset.png")));
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        switch (type) {
+            case 0:                                                                                                 // einzelner Block
+                image = fullimage.getSubimage(64, 256, 32, 32);
+                break;
         }
     }
 

@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class Player extends GameObject {
 
-    private final float g = 0.981f;                                         // Gravitationskonstante
+    private final float g = 0.6f;                                         // Gravitationskonstante
     private final int maximumFallSpeed = 20;
     private boolean showHitbox = false;
 
