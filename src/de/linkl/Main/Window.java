@@ -1,7 +1,5 @@
 package de.linkl.Main;
 
-import com.sun.scenario.Settings;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class Window extends JFrame implements ActionListener {
 
-    private Dimension dimension;
+    private final Dimension dimension;
 
     private JButton start;
     private JButton settings;
@@ -22,7 +20,7 @@ public class Window extends JFrame implements ActionListener {
         dimension = new Dimension(width, height);
 
         this.setTitle(title);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setResizable(false);
         this.setFocusable(true);
         this.requestFocus();
@@ -49,8 +47,6 @@ public class Window extends JFrame implements ActionListener {
         this.setMaximumSize(dimension);
         this.setMinimumSize(dimension);
         this.setLocationRelativeTo(null);
-        this.setBackground(Color.RED);
-        this.setVisible(true);
 
         start = new JButton("Start");
         start.setBounds(width/2 - 100,40,200,60);
@@ -71,17 +67,17 @@ public class Window extends JFrame implements ActionListener {
         Title.setBounds(width/2, 40, 300, 300);
         this.add(Title);*/
 
-        Background background = new Background(1280, 710, "/de/linkl/Graphics/menuBackground.jpg");
+        MenuBackground background = new MenuBackground(1280, 710, "/de/linkl/Graphics/menuBackground.jpg");
         this.add(background);
 
-        this.repaint();
+        this.setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == start) {
             dispose();
-            new Window(1280, 710, "Java Game", new Game());
+            Window gameWindow = new Window(1280, 710, "Java Game", new Game());
         }
         if(e.getSource() == settings) {
 

@@ -44,7 +44,7 @@ public class LevelLoader {
                 while (scanner.hasNextInt()) {                                                              // "während es ein nächstes Zeichen (int) gibt"
                     int object = scanner.nextInt();                                                         // int object meint die aktuelle Zahl die der Scanner gelesen hat
                     nr++;
-                    if (nr == 40) {                                                                         // eine Reihe hat hier genau 20 Zeichen
+                    if (nr == 80) {                                                                         // eine Reihe hat hier genau 80 Zeichen
                         nr = 0;
                         row++;
                     }
@@ -52,9 +52,33 @@ public class LevelLoader {
                     if (object == 0) {
 
                     } else if (object == 1) {
-                        objectHandler.addObject(new Tile(nr*32,row*32, 0, ObjectID.TILE));
-                    } else if (object == 2) {
                         objectHandler.addObject(new Player(nr*32, row*32, ObjectID.PLAYER, keyHandler));
+                    } else if (object == 2) {
+                        objectHandler.addObject(new Tile(nr*32,row*32, 2, ObjectID.TILE));
+                    } else if (object == 3) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 3, ObjectID.TILE));
+                    } else if (object == 4) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 4, ObjectID.TILE));
+                    } else if (object == 5) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 5, ObjectID.TILE));
+                    } else if (object == 6) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 6, ObjectID.TILE));
+                    } else if (object == 7) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 7, ObjectID.TILE));
+                    } else if (object == 8) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 8, ObjectID.TILE));
+                    } else if (object == 9) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 9, ObjectID.TILE));
+                    } else if (object == 10) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 10, ObjectID.TILE));
+                    } else if (object == 11) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 11, ObjectID.TILE));
+                    } else if (object == 12) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 12, ObjectID.TILE));
+                    } else if (object == 13) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 13, ObjectID.TILE));
+                    } else if (object == 14) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 14, ObjectID.TILE));
                     }
                 }
                 levelloaded = true;
