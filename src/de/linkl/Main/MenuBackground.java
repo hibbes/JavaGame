@@ -7,14 +7,14 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class Background extends JLabel {
+public class MenuBackground extends JLabel {
 
     BufferedImage image;
     private String path;
     private int width;
     private int height;
 
-    public Background(int width, int height, String path) {
+    public MenuBackground(int width, int height, String path) {
         this.path = path;
         this.width = width;
         this.height = height;

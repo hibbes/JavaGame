@@ -29,8 +29,44 @@ public class Tile extends GameObject {
         }
 
         switch (type) {
-            case 0:                                                                                                 // einzelner Block
+            case 2:                                                                                                 // siehe gimp tileset Bild
                 image = fullimage.getSubimage(64, 256, 32, 32);
+                break;
+            case 3:
+                image = fullimage.getSubimage(0, 0, 32, 32);
+                break;
+            case 4:
+                image = fullimage.getSubimage(32, 0, 32, 32);
+                break;
+            case 5:
+                image = fullimage.getSubimage(64, 0, 32, 32);
+                break;
+            case 6:
+                image = fullimage.getSubimage(0, 32, 32, 32);
+                break;
+            case 7:
+                image = fullimage.getSubimage(32, 32, 32, 32);
+                break;
+            case 8:
+                image = fullimage.getSubimage(64, 32, 32, 32);
+                break;
+            case 9:
+                image = fullimage.getSubimage(0, 64, 32, 32);
+                break;
+            case 10:
+                image = fullimage.getSubimage(32, 64, 32, 32);
+                break;
+            case 11:
+                image = fullimage.getSubimage(64, 64, 32, 32);
+                break;
+            case 12:
+                image = fullimage.getSubimage(128, 0, 32, 32);
+                break;
+            case 13:
+                image = fullimage.getSubimage(160, 0, 32, 32);
+                break;
+            case 14:
+                image = fullimage.getSubimage(128, 32, 32, 32);
                 break;
         }
     }

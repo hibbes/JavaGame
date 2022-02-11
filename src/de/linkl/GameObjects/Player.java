@@ -35,14 +35,14 @@ public class Player extends GameObject {
     public void render(Graphics g) {
         g.drawImage(image, x, y, width, height, null);
 
-        /*if (showHitbox) {
+        if (showHitbox) {
             Graphics2D g2d = (Graphics2D) g;
             g2d.setColor(Color.RED);
             g2d.draw(getBounds());
             g2d.draw(getBoundsTop());
             g2d.draw(getBoundsRight());
             g2d.draw(getBoundsLeft());
-        }*/
+        }
     }
 
     @Override
@@ -69,16 +69,16 @@ public class Player extends GameObject {
     }
 
     public Rectangle getBoundsRight() {
-        return new Rectangle(x + (width - (width / 10)), y + (height / 8), width / 10, height - (height / 4));
+        return new Rectangle(x + (width - (width / 10)), y + (height / 4), width / 10, height - (height / 2));
     }
 
     public Rectangle getBoundsLeft() {
-        return new Rectangle(x, y + (height / 8), width / 10, height - (height / 4));
+        return new Rectangle(x, y + (height / 4), width / 10, height - (height / 2));
     }
 
     public void collisions(LinkedList<GameObject> objects) {
         for (GameObject tempObject : objects) {
-            if (tempObject.getId() == ObjectID.TILE) {                              // wenn das Object ein Tile ist
+            if (tempObject.getId() == ObjectID.TILE) {
                 if (getBounds().intersects(tempObject.getBounds())) {               // wenn die Hitbox(unten) des Players sich mit der dieses Tiles überschneidet
                     y = tempObject.getY() - height;
                     speedY = 0;
@@ -88,19 +88,19 @@ public class Player extends GameObject {
                     falling = true;
                 }
 
-                if (getBoundsRight().intersects(tempObject.getBounds())) {          // wenn die Hitbox(rechts) des Players sich mit der dieses Tiles überschneidet
-                    x = tempObject.getX() - width;                                  // TODO: Bug wenn beim Springen die seitlichen Hitboxen getriggert werden
-                    speedX = 0;
-                }
-
-                if (getBoundsLeft().intersects(tempObject.getBounds())) {           // wenn die Hitbox(links) des Players sich mit der dieses Tiles überschneidet
-                    x = tempObject.getX() + tempObject.getWidth();
-                    speedX = 0;
-                }
-
                 if (getBoundsTop().intersects(tempObject.getBounds())) {
                     y = tempObject.getY() + tempObject.getHeight();
                     speedY = 0;
+                } else {
+                    if (getBoundsRight().intersects(tempObject.getBounds())) {          // wenn die Hitbox(rechts) des Players sich mit der dieses Tiles überschneidet
+                        x = tempObject.getX() - width;
+                        speedX = 0;
+                    }
+
+                    if (getBoundsLeft().intersects(tempObject.getBounds())) {           // wenn die Hitbox(links) des Players sich mit der dieses Tiles überschneidet
+                        x = tempObject.getX() + tempObject.getWidth();
+                        speedX = 0;
+                    }
                 }
             }
         }
@@ -118,7 +118,7 @@ public class Player extends GameObject {
         }
         if (keyHandler.spacePressed && !jumping) {
             jumping = true;
-            setSpeedY(-10);
+            setSpeedY(-14);
         }
 
         if (keyHandler.altPressed && keyHandler.hPressed) {                         // nur Debugging: schaltet Hitboxen an und ausif (showHitbox) {

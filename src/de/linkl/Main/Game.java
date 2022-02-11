@@ -1,7 +1,7 @@
 package de.linkl.Main;
 
-import de.linkl.GameObjects.Player;
-import de.linkl.GameObjects.Tile;
+import de.linkl.GameObjects.GameObject;
+import de.linkl.Handler.Camera;
 import de.linkl.Handler.KeyHandler;
 import de.linkl.Handler.LevelLoader;
 import de.linkl.Handler.ObjectHandler;
@@ -14,33 +14,38 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class Game extends Canvas implements Runnable{
+public class Game extends Canvas implements Runnable {
 
     private boolean running = false;
     private double ticksPerSecond = 60;
-    public static int width, height;
+    public static float width, height;
 
     Thread thread;
     ObjectHandler objectHandler;
-    KeyHandler keyHandler = new KeyHandler();
+    KeyHandler keyHandler;
     LevelLoader levelLoader;
+    Camera camera;
     BufferedImage background;
+    BufferedImage clouds;
 
     public void init() {
         width = this.getWidth();
         height = this.getHeight();
-        /*try {
-            background = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/de/linkl/Graphics/menuBackground.png")));
+        try {
+            background = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/de/linkl/Graphics/javaistscheisse.png")));
+            clouds = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/de/linkl/Graphics/clouds.png")));
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
 
         keyHandler = new KeyHandler();
         objectHandler = new ObjectHandler();
+        camera = new Camera(0, 0);
         levelLoader = new LevelLoader(objectHandler, keyHandler);
         levelLoader.load("rsc/Level/Level1.txt");
 
         this.addKeyListener(keyHandler);
+        this.setFocusable(true);
     }
 
     public synchronized void start() {
@@ -84,6 +89,12 @@ public class Game extends Canvas implements Runnable{
     public void tick() {                                                // "updatet" die Informationen bei jedem Tick
         objectHandler.tick();
 
+        for (GameObject gameObject: objectHandler.objects) {            // geht die Liste durch und sucht den Player, dieser soll das fokussierte Objekt der Kamera sein
+            if (gameObject.getId() == ObjectID.PLAYER) {
+                camera.tick(gameObject);
+            }
+        }
+
         if (keyHandler.num2Pressed) {
             levelLoader.load("rsc/Level/Level2.txt");
         }
@@ -100,18 +111,23 @@ public class Game extends Canvas implements Runnable{
             return;
         }
         Graphics g = bs.getDrawGraphics();
+        Graphics2D g2d = (Graphics2D) g;
 
+        g.fillRect(0,0,(int)width,(int)height);
+        g.drawImage(background, 0, 0, (int)Game.width, (int)Game.height, null);
 
-        //g.drawImage(background, 0, 0, Game.width, Game.height, null);
-        g.fillRect(0,0,width,height);
+        g.drawImage(clouds, 0, 0, (int)Game.width, (int)Game.height, null);
+        g.drawImage(clouds, 0, 0, (int)Game.width, (int)Game.height, null);
+
+        g2d.translate(camera.getX(), camera.getY());
+
         objectHandler.render(g);
+
+        g2d.translate(-camera.getX(), -camera.getY());
 
         g.dispose();                                                    // dispose() ist eine Methode, die die benötigten Systemressourcen,
         bs.show();                                                      // welche für das Objekt benötigt, freigibt
+
     }
 
-    public static void main(String[] args) {
-        Window menu = new Window(1280, 710, "Java Game");
-        //new Window(1280, 710, "Java Game", new Game());
-    }
 }
