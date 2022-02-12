@@ -23,7 +23,7 @@ public class Tile extends GameObject {
         height = 32;
 
         try {
-            fullimage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/de/linkl/Graphics/ground_tileset.png")));
+            fullimage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/de/linkl/Graphics/map/ground_tileset.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -73,14 +73,7 @@ public class Tile extends GameObject {
 
     @Override
     public void render(Graphics g) {
-
-        if (!(image == null)) {
-            g.drawImage(image, x, y, width, height, null);
-        }
-        else {
-            g.setColor(Color.BLACK);
-            g.fillRect(x, y, width, height);
-        }
+        g.drawImage(image, x, y, width, height, null);
     }
 
     @Override
@@ -89,7 +82,7 @@ public class Tile extends GameObject {
     }
 
     @Override
-    public Rectangle getBounds() {
+    public Rectangle getTotalBounds() {
         return new Rectangle(x, y, getWidth(), getHeight());
     }
 }

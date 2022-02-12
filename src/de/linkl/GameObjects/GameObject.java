@@ -12,6 +12,8 @@ public abstract class GameObject {
     protected int width, height;
     protected double scale = 1;
     protected float speedX, speedY;
+    protected boolean alive;
+
     protected ObjectID id;
     public BufferedImage image;
 
@@ -33,7 +35,7 @@ public abstract class GameObject {
 
     public abstract void render(Graphics g);                                                // Definiert wie das Object dargestellt werden soll
     public abstract void tick(LinkedList<GameObject>objects);                               // Definiert, was das Object bei jedem Tick macht
-    public abstract Rectangle getBounds();                                                  // Definiert die Hitbox des Objects
+    public abstract Rectangle getTotalBounds();                                                  // Definiert die gesamte Hitbox des Objects
 
     public int getX() {
         return x;
@@ -121,5 +123,9 @@ public abstract class GameObject {
 
     public void setImage(BufferedImage image) {
         this.image = image;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
     }
 }

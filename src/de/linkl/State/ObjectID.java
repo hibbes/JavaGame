@@ -1,5 +1,5 @@
 package de.linkl.State;
 
 public enum ObjectID {
-    PLAYER, TILE, ENEMY, BACKGROUND
+    PLAYER, TILE, ENEMY, COIN
 }
