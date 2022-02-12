@@ -18,7 +18,6 @@ public class Player extends GameObject {
     private boolean showHitbox = false;
     private int startX;
 
-    private boolean facingRight;
     private boolean onEnemy;
 
     public static BufferedImage[] idleRight;

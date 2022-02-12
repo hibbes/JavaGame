@@ -119,6 +119,9 @@ public class Tile extends GameObject {
             case 31:
                 image = fullimage.getSubimage(160, 224, 32, 32);
                 break;
+            case 32:
+                image = fullimage.getSubimage(352, 288, 32, 32);
+                break;
         }
     }
 
