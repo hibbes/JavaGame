@@ -1,8 +1,11 @@
 package de.linkl.Handler;
 
-import de.linkl.GameObjects.GameObject;
+import de.linkl.GameObjects.BackgroundObjects.Cloud;
+import de.linkl.GameObjects.BackgroundObjects.FloatingIsland;
+import de.linkl.GameObjects.BasicEnemy;
 import de.linkl.GameObjects.Player;
 import de.linkl.GameObjects.Tile;
+import de.linkl.Main.Game;
 import de.linkl.State.ObjectID;
 
 import java.io.File;
@@ -13,15 +16,18 @@ public class LevelLoader {
 
     private int nr, row;                                                                                // Anzahl an Zeichen pro Reihe und Anzahl an Reihen
     private boolean levelloaded;
+    public String loadedlevel;
 
     Scanner scanner;                                                                                    // Klasse von Java, die einfache Zeichen lesen kann
     File file;
     ObjectHandler objectHandler;
+    ObjectHandler backgroundHandler;
     KeyHandler keyHandler;
 
-    public LevelLoader(ObjectHandler objectHandler, KeyHandler keyHandler) {
+    public LevelLoader(ObjectHandler objectHandler,  ObjectHandler backgroundHandler,KeyHandler keyHandler) {
         this.keyHandler = keyHandler;
         this.objectHandler = objectHandler;
+        this.backgroundHandler = backgroundHandler;
         this.nr = -1;
         this.row = 0;
         this.levelloaded = false;
@@ -30,6 +36,7 @@ public class LevelLoader {
     public void load(String path) {                                                                     // Methode um eine Txt Datei zu laden
         if (levelloaded) {
             objectHandler.removeAll();
+            backgroundHandler.removeAll();
             levelloaded = false;
             load(path);
         }
@@ -79,9 +86,20 @@ public class LevelLoader {
                         objectHandler.addObject(new Tile(nr * 32, row * 32, 13, ObjectID.TILE));
                     } else if (object == 14) {
                         objectHandler.addObject(new Tile(nr * 32, row * 32, 14, ObjectID.TILE));
+                    } else if (object == 99) {
+                        objectHandler.addObject(new BasicEnemy(nr * 32, row * 32, ObjectID.ENEMY));
                     }
                 }
+
+                backgroundHandler.addObject(new Cloud(Game.totalWidth, 100, null));
+                backgroundHandler.addObject(new Cloud(Game.totalWidth/2, 50, null));
+                backgroundHandler.addObject(new Cloud(Game.totalWidth/6, 150, null));
+                backgroundHandler.addObject(new Cloud(Game.totalWidth + Game.totalWidth/2, 175, null));
+                backgroundHandler.addObject(new FloatingIsland(Game.totalWidth, 450, null));
+                backgroundHandler.addObject(new FloatingIsland(Game.totalWidth/6 + 200, 550, null));
+
                 levelloaded = true;
+                loadedlevel = path;
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

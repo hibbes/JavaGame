@@ -17,35 +17,41 @@ import java.util.Objects;
 public class Game extends Canvas implements Runnable {
 
     private boolean running = false;
+    private boolean paused = false;
     private double ticksPerSecond = 60;
-    public static float width, height;
+    private int timer = 0;
+    public static int width, height;
+    public static int totalWidth = 2560;
+    public static int collectedCoins = 0;
 
     Thread thread;
     ObjectHandler objectHandler;
+    ObjectHandler backgroundHandler;
     KeyHandler keyHandler;
     LevelLoader levelLoader;
     Camera camera;
     BufferedImage background;
-    BufferedImage clouds;
+
 
     public void init() {
         width = this.getWidth();
         height = this.getHeight();
         try {
-            background = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/de/linkl/Graphics/javaistscheisse.png")));
-            clouds = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/de/linkl/Graphics/clouds.png")));
+            background = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/de/linkl/Graphics/map/sky.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         keyHandler = new KeyHandler();
         objectHandler = new ObjectHandler();
+        backgroundHandler = new ObjectHandler();
         camera = new Camera(0, 0);
-        levelLoader = new LevelLoader(objectHandler, keyHandler);
+        levelLoader = new LevelLoader(objectHandler, backgroundHandler, keyHandler);
         levelLoader.load("rsc/Level/Level1.txt");
 
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
+
     }
 
     public synchronized void start() {
@@ -86,21 +92,34 @@ public class Game extends Canvas implements Runnable {
         }
     }
 
-    public void tick() {                                                // "updatet" die Informationen bei jedem Tick
-        objectHandler.tick();
+    public void tick() {                                                    // "updatet" die Informationen bei jedem Tick
+        if (!paused) {
+            objectHandler.tick();
+            backgroundHandler.tick();
 
-        for (GameObject gameObject: objectHandler.objects) {            // geht die Liste durch und sucht den Player, dieser soll das fokussierte Objekt der Kamera sein
-            if (gameObject.getId() == ObjectID.PLAYER) {
-                camera.tick(gameObject);
+            for (GameObject gameObject : objectHandler.objects) {           // geht die Liste durch und sucht den Player, dieser soll das fokussierte Objekt der Kamera sein
+                if (gameObject.getId() == ObjectID.PLAYER) {
+                    camera.tick(gameObject);
+                }
+            }
+            if (keyHandler.rPressed) {
+                levelLoader.load(levelLoader.loadedlevel);
+            }
+            if (keyHandler.num1Pressed) {
+                levelLoader.load("rsc/Level/Level1.txt");
+            }
+            if (keyHandler.num2Pressed) {
+                levelLoader.load("rsc/Level/Level2.txt");
+            }
+            if (keyHandler.num3Pressed) {
+                levelLoader.load("rsc/Level/Level3.txt");
             }
         }
-
-        if (keyHandler.num2Pressed) {
-            levelLoader.load("rsc/Level/Level2.txt");
+        if (keyHandler.escPressed && timer >= 60) {                                        // mit escape kann man pausieren, nur einmal pro Sekunde
+            paused = !paused;
+            timer = 0;
         }
-        if (keyHandler.num3Pressed) {
-            levelLoader.load("rsc/Level/Level3.txt");
-        }
+        timer++;
     }
 
     public void render() {                                              // stellt die anzuzeigenden Objects dar
@@ -113,17 +132,15 @@ public class Game extends Canvas implements Runnable {
         Graphics g = bs.getDrawGraphics();
         Graphics2D g2d = (Graphics2D) g;
 
-        g.fillRect(0,0,(int)width,(int)height);
-        g.drawImage(background, 0, 0, (int)Game.width, (int)Game.height, null);
-
-        g.drawImage(clouds, 0, 0, (int)Game.width, (int)Game.height, null);
-        g.drawImage(clouds, 0, 0, (int)Game.width, (int)Game.height, null);
-
-        g2d.translate(camera.getX(), camera.getY());
-
-        objectHandler.render(g);
+        g.fillRect(0,0,width,height);
+        g.drawImage(background, 0, 0, Game.width, Game.height, null);
 
         g2d.translate(-camera.getX(), -camera.getY());
+
+        backgroundHandler.render(g);
+        objectHandler.render(g);                                        // rendert jedes Objekt aus der Liste des Objecthandlers
+
+        g2d.translate(camera.getX(), camera.getY());
 
         g.dispose();                                                    // dispose() ist eine Methode, die die benötigten Systemressourcen,
         bs.show();                                                      // welche für das Objekt benötigt, freigibt
