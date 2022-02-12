@@ -68,6 +68,57 @@ public class Tile extends GameObject {
             case 14:
                 image = fullimage.getSubimage(128, 32, 32, 32);
                 break;
+            case 15:
+                image = fullimage.getSubimage(160, 32, 32, 32);
+                break;
+            case 16:
+                image = fullimage.getSubimage(224, 0, 32, 32);
+                break;
+            case 17:
+                image = fullimage.getSubimage(224, 32, 32, 32);
+                break;
+            case 18:
+                image = fullimage.getSubimage(288, 0, 32, 32);
+                break;
+            case 19:
+                image = fullimage.getSubimage(320, 0, 32, 32);
+                break;
+            case 20:
+                image = fullimage.getSubimage(192, 96, 32, 32);
+                break;
+            case 21:
+                image = fullimage.getSubimage(224, 96, 32, 32);
+                break;
+            case 22:
+                image = fullimage.getSubimage(256, 96, 32, 32);
+                break;
+            case 23:
+                image = fullimage.getSubimage(288, 96, 32, 32);
+                break;
+            case 24:
+                image = fullimage.getSubimage(0, 256, 32, 32);
+                break;
+            case 25:
+                image = fullimage.getSubimage(0, 288, 32, 32);
+                break;
+            case 26:
+                image = fullimage.getSubimage(0, 320, 32, 32);
+                break;
+            case 27:
+                image = fullimage.getSubimage(0, 384, 32, 32);
+                break;
+            case 28:
+                image = fullimage.getSubimage(32, 384, 32, 32);
+                break;
+            case 29:
+                image = fullimage.getSubimage(64, 384, 32, 32);
+                break;
+            case 30:
+                image = fullimage.getSubimage(128, 224, 32, 32);
+                break;
+            case 31:
+                image = fullimage.getSubimage(160, 224, 32, 32);
+                break;
         }
     }
 

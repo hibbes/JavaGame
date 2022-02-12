@@ -91,7 +91,7 @@ public class Player extends GameObject {
         } else if (facingRight && !onEnemy) {
             animationHandler.setAnimation(jumpRight);
             animationHandler.setDelay(-1);
-        } else if (!falling && !onEnemy){
+        } else if (jumping && !onEnemy){
             animationHandler.setAnimation(jumpLeft);
             animationHandler.setDelay(-1);
         }

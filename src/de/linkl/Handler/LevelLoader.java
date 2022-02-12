@@ -86,8 +86,42 @@ public class LevelLoader {
                         objectHandler.addObject(new Tile(nr * 32, row * 32, 13, ObjectID.TILE));
                     } else if (object == 14) {
                         objectHandler.addObject(new Tile(nr * 32, row * 32, 14, ObjectID.TILE));
-                    } else if (object == 99) {
-                        objectHandler.addObject(new BasicEnemy(nr * 32, row * 32, ObjectID.ENEMY));
+                    } else if (object == 15) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 15, ObjectID.TILE));
+                    } else if (object == 16) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 16, ObjectID.TILE));
+                    } else if (object == 17) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 17, ObjectID.TILE));
+                    } else if (object == 18) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 18, ObjectID.TILE));
+                    } else if (object == 19) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 19, ObjectID.TILE));
+                    } else if (object == 20) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 20, ObjectID.TILE));
+                    } else if (object == 21) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 21, ObjectID.TILE));
+                    } else if (object == 22) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 22, ObjectID.TILE));
+                    } else if (object == 23) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 23, ObjectID.TILE));
+                    } else if (object == 24) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 24, ObjectID.TILE));
+                    } else if (object == 25) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 25, ObjectID.TILE));
+                    } else if (object == 26) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 26, ObjectID.TILE));
+                    } else if (object == 27) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 27, ObjectID.TILE));
+                    } else if (object == 28) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 28, ObjectID.TILE));
+                    } else if (object == 29) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 29, ObjectID.TILE));
+                    } else if (object == 30) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 30, ObjectID.TILE));
+                    } else if (object == 31) {
+                        objectHandler.addObject(new Tile(nr * 32, row * 32, 31, ObjectID.TILE));
+                    }else if (object == 99) {
+                        //objectHandler.addObject(new BasicEnemy(nr * 32, row * 32, ObjectID.ENEMY));
                     }
                 }
 

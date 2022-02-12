@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Objects;
 
-public class BasicEnemy extends GameObject {
+public abstract class BasicEnemy extends GameObject {
     private final float g = 0.6f;                                          // Gravitationskonstante
     private final int maximumFallSpeed = 20;
     private boolean showHitbox = false;
