@@ -13,9 +13,14 @@ public abstract class GameObject {
     protected double scale = 1;
     protected float speedX, speedY;
     protected boolean alive;
+    protected boolean facingRight;
+
+    protected final float g = 0.6f;                                          // Gravitationskonstante
+    protected final int maximumFallSpeed = 20;
+    protected boolean showHitbox = false;
 
     protected ObjectID id;
-    public BufferedImage image;
+
 
     protected boolean falling = true;
     protected boolean jumping = false;
@@ -105,10 +110,6 @@ public abstract class GameObject {
         return speedY;
     }
 
-    public BufferedImage getImage() {
-        return image;
-    }
-
     public void setScale(double scale) {
         this.scale = scale;
     }
@@ -119,10 +120,6 @@ public abstract class GameObject {
 
     public void setSpeedY(float speedY) {
         this.speedY = speedY;
-    }
-
-    public void setImage(BufferedImage image) {
-        this.image = image;
     }
 
     public void setAlive(boolean alive) {

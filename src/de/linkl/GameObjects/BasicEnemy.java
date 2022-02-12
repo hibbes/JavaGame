@@ -8,29 +8,18 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 public abstract class BasicEnemy extends GameObject {
-    private final float g = 0.6f;                                          // Gravitationskonstante
-    private final int maximumFallSpeed = 20;
-    private boolean showHitbox = false;
+
 
     public BasicEnemy(int x, int y, ObjectID id) {
         super(x, y, id);
         this.id = id;
         this.speedX = 2;
-        this.scale = 0.5;
         this.alive = true;
-
-        try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/de/linkl/Graphics/entity/player/player.png")));
-            width = (int) (image.getWidth() * scale);
-            height = (int) (image.getHeight() * scale);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(image, x, y, width, height, null);
+        //g.drawImage(image, x, y, width, height, null);
 
         /*if (showHitbox) {
             Graphics2D g2d = (Graphics2D) g;
