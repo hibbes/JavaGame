@@ -20,26 +20,11 @@ public class Coin extends GameObject {
         this.width = 25;
         this.height = 25;
         this.alive = true;
+        this.scale = 0.75;
         loadSprites();
         animationHandler = new AnimationHandler();
         animationHandler.setAnimation(spinCoin);
         animationHandler.setDelay(120);
-    }
-
-    public Rectangle getBoundsBottom() {
-        return new Rectangle(x + (width / 6), y + (height / 2), width - (width / 3), height - (height / 2));
-    }
-
-    public Rectangle getBoundsTop() {
-        return new Rectangle(x + (width / 6), y, width - (width / 3), height - (height / 2));
-    }
-
-    public Rectangle getBoundsRight() {
-        return new Rectangle(x + (width - (width / 10)), y + (height / 4), width / 10, height - (height / 2));
-    }
-
-    public Rectangle getBoundsLeft() {
-        return new Rectangle(x, y + (height / 4), width / 10, height - (height / 2));
     }
 
     @Override
@@ -50,17 +35,7 @@ public class Coin extends GameObject {
 
     @Override
     public void render(Graphics g) {
-
-        g.drawImage(animationHandler.getImage(), x, y, width, height, null);
-
-        /*if (showHitbox) {
-            Graphics2D g2d = (Graphics2D) g;
-            g2d.setColor(Color.RED);
-            g2d.draw(getBoundsBottom());
-            g2d.draw(getBoundsTop());
-            g2d.draw(getBoundsRight());
-            g2d.draw(getBoundsLeft());
-        }*/
+        g.drawImage(animationHandler.getImage(), x, y + (int)(width*scale/2), (int)(width*scale), (int)(width*scale), null);
     }
 
     @Override
@@ -70,18 +45,17 @@ public class Coin extends GameObject {
         }
         animationHandler.tick();
     }
-        public void loadSprites () {
-            try {
-                BufferedImage fullImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/de/linkl/Graphics/entity/coin/coin.png")));
-                spinCoin = new BufferedImage[6];
+    public void loadSprites () {
+        try {
+            BufferedImage fullImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/de/linkl/Graphics/entity/coin/coin.png")));
+            spinCoin = new BufferedImage[6];
 
-                for (int i=0; i<6; i++) {
-                    spinCoin[i] = fullImage.getSubimage(i * 32, 0, 32, 32);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+            for (int i=0; i<6; i++) {
+                spinCoin[i] = fullImage.getSubimage(i * 32, 0, 32, 32);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
+    }
 }
 

@@ -138,7 +138,7 @@ public class Game extends Canvas implements Runnable {
 
         backgroundHandler.render(g);
         objectHandler.render(g);                                        // rendert jedes Objekt aus der Liste des Objecthandlers
-        coinHandler.render(g);
+        coinHandler.render(g, (int)camera.getX() + 1200, (int)camera.getY() + 20);
 
         g2d.translate(camera.getX(), camera.getY());
 
