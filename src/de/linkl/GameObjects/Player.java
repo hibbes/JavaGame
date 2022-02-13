@@ -1,6 +1,7 @@
 package de.linkl.GameObjects;
 
 import de.linkl.Handler.AnimationHandler;
+import de.linkl.Handler.CoinHandler;
 import de.linkl.Handler.KeyHandler;
 import de.linkl.Main.Game;
 import de.linkl.Main.Window;
@@ -166,6 +167,14 @@ public class Player extends GameObject {
                     Window.collectedCoins += 1;
                 } else if (getBoundsTop().intersects(tempObject.getTotalBounds()) || getBoundsRight().intersects(tempObject.getTotalBounds()) || getBoundsLeft().intersects(tempObject.getTotalBounds())) {
                     x = startX;
+                }
+            }
+
+            if (tempObject.getId() == ObjectID.COIN) {
+                if(getTotalBounds().intersects(tempObject.getTotalBounds())) {
+                    tempObject.setAlive(false);
+
+                    CoinHandler.collectedCoins++;
                 }
             }
         }

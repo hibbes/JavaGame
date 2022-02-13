@@ -1,10 +1,7 @@
 package de.linkl.Main;
 
 import de.linkl.GameObjects.GameObject;
-import de.linkl.Handler.Camera;
-import de.linkl.Handler.KeyHandler;
-import de.linkl.Handler.LevelLoader;
-import de.linkl.Handler.ObjectHandler;
+import de.linkl.Handler.*;
 import de.linkl.State.ObjectID;
 
 import javax.imageio.ImageIO;
@@ -26,6 +23,7 @@ public class Game extends Canvas implements Runnable {
     Thread thread;
     ObjectHandler objectHandler;
     ObjectHandler backgroundHandler;
+    CoinHandler coinHandler;
     KeyHandler keyHandler;
     LevelLoader levelLoader;
     Camera camera;
@@ -43,6 +41,7 @@ public class Game extends Canvas implements Runnable {
         keyHandler = new KeyHandler();
         objectHandler = new ObjectHandler();
         backgroundHandler = new ObjectHandler();
+        coinHandler = new CoinHandler();
 
         camera = new Camera(0, 0);
         levelLoader = new LevelLoader(objectHandler, backgroundHandler, keyHandler);
@@ -95,6 +94,7 @@ public class Game extends Canvas implements Runnable {
         if (!paused) {
             objectHandler.tick();
             backgroundHandler.tick();
+            coinHandler.tick();
 
             for (GameObject gameObject : objectHandler.objects) {           // geht die Liste durch und sucht den Player, dieser soll das fokussierte Objekt der Kamera sein
                 if (gameObject.getId() == ObjectID.PLAYER) {
@@ -138,6 +138,7 @@ public class Game extends Canvas implements Runnable {
 
         backgroundHandler.render(g);
         objectHandler.render(g);                                        // rendert jedes Objekt aus der Liste des Objecthandlers
+        coinHandler.render(g);
 
         g2d.translate(camera.getX(), camera.getY());
 
