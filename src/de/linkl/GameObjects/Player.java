@@ -3,6 +3,7 @@ package de.linkl.GameObjects;
 import de.linkl.Handler.AnimationHandler;
 import de.linkl.Handler.KeyHandler;
 import de.linkl.Main.Game;
+import de.linkl.Main.Window;
 import de.linkl.State.ObjectID;
 
 import javax.imageio.ImageIO;
@@ -162,7 +163,7 @@ public class Player extends GameObject {
                         animationHandler.setAnimation(spinLeft);
                     }
                     animationHandler.setDelay(60);
-                    Game.collectedCoins += 1;
+                    Window.collectedCoins += 1;
                 } else if (getBoundsTop().intersects(tempObject.getTotalBounds()) || getBoundsRight().intersects(tempObject.getTotalBounds()) || getBoundsLeft().intersects(tempObject.getTotalBounds())) {
                     x = startX;
                 }

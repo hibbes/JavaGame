@@ -22,7 +22,6 @@ public class Game extends Canvas implements Runnable {
     private int timer = 0;
     public static int width, height;
     public static int totalWidth = 2560;
-    public static int collectedCoins = 0;
 
     Thread thread;
     ObjectHandler objectHandler;
@@ -31,7 +30,6 @@ public class Game extends Canvas implements Runnable {
     LevelLoader levelLoader;
     Camera camera;
     BufferedImage background;
-
 
     public void init() {
         width = this.getWidth();
@@ -45,6 +43,7 @@ public class Game extends Canvas implements Runnable {
         keyHandler = new KeyHandler();
         objectHandler = new ObjectHandler();
         backgroundHandler = new ObjectHandler();
+
         camera = new Camera(0, 0);
         levelLoader = new LevelLoader(objectHandler, backgroundHandler, keyHandler);
         levelLoader.load("rsc/Level/Level1.txt");

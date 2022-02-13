@@ -2,8 +2,8 @@ package de.linkl.Handler;
 
 import de.linkl.GameObjects.BackgroundObjects.Cloud;
 import de.linkl.GameObjects.BackgroundObjects.FloatingIsland;
-import de.linkl.GameObjects.BasicEnemy;
 import de.linkl.GameObjects.Bunny;
+import de.linkl.GameObjects.Coin;
 import de.linkl.GameObjects.Player;
 import de.linkl.GameObjects.Tile;
 import de.linkl.Main.Game;
@@ -123,6 +123,8 @@ public class LevelLoader {
                         objectHandler.addObject(new Tile(nr * 32, row * 32, 31, ObjectID.TILE));
                     } else if (object == 32) {
                         objectHandler.addObject(new Tile(nr * 32, row * 32, 32, ObjectID.TILE));
+                    } else if (object == 98) {
+                        objectHandler.addObject(new Coin(nr * 32, row * 32, ObjectID.COIN));
                     } else if (object == 99) {
                         objectHandler.addObject(new Bunny(nr * 32, row * 32, ObjectID.ENEMY));
                     }
