@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Window extends JFrame implements ActionListener {
 
@@ -13,7 +15,8 @@ public class Window extends JFrame implements ActionListener {
     private JButton settings;
     private JButton exit;
 
-    private JLabel Title;
+    public static int collectedCoins = 0;
+
 
     public Window(int width, int height, String title, Game game) {
 
@@ -21,6 +24,11 @@ public class Window extends JFrame implements ActionListener {
 
         this.setTitle(title);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
         this.setResizable(false);
         this.setFocusable(true);
         this.requestFocus();
