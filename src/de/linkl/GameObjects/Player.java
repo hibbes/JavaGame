@@ -164,7 +164,7 @@ public class Player extends GameObject {
                         animationHandler.setAnimation(spinLeft);
                     }
                     animationHandler.setDelay(60);
-                    Window.collectedCoins += 1;
+                    CoinHandler.collectedCoins++;
                 } else if (getBoundsTop().intersects(tempObject.getTotalBounds()) || getBoundsRight().intersects(tempObject.getTotalBounds()) || getBoundsLeft().intersects(tempObject.getTotalBounds())) {
                     x = startX;
                 }

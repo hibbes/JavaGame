@@ -15,9 +15,6 @@ public class Window extends JFrame implements ActionListener {
     private JButton settings;
     private JButton exit;
 
-    public static int collectedCoins = 0;
-
-
     public Window(int width, int height, String title, Game game) {
 
         dimension = new Dimension(width, height);

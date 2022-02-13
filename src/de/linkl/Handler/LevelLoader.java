@@ -1,11 +1,8 @@
 package de.linkl.Handler;
 
+import de.linkl.GameObjects.*;
 import de.linkl.GameObjects.BackgroundObjects.Cloud;
 import de.linkl.GameObjects.BackgroundObjects.FloatingIsland;
-import de.linkl.GameObjects.Bunny;
-import de.linkl.GameObjects.Coin;
-import de.linkl.GameObjects.Player;
-import de.linkl.GameObjects.Tile;
 import de.linkl.Main.Game;
 import de.linkl.State.ObjectID;
 
@@ -57,7 +54,7 @@ public class LevelLoader {
                         row++;
                     }
 
-                    if (object == 0) {
+                    if (object == 0) {                                                                      // die verschiedenen Arten von Objekten, die je nach Wert in dem txt - Dokument platziert werden
 
                     } else if (object == 1) {
                         objectHandler.addObject(new Player(nr*32, row*32, ObjectID.PLAYER, keyHandler));
@@ -123,6 +120,8 @@ public class LevelLoader {
                         objectHandler.addObject(new Tile(nr * 32, row * 32, 31, ObjectID.TILE));
                     } else if (object == 32) {
                         objectHandler.addObject(new Tile(nr * 32, row * 32, 32, ObjectID.TILE));
+                    } else if (object == 97) {
+                        objectHandler.addObject(new Bee(nr * 32, row * 32, ObjectID.BEE));
                     } else if (object == 98) {
                         objectHandler.addObject(new Coin(nr * 32, row * 32, ObjectID.COIN));
                     } else if (object == 99) {
