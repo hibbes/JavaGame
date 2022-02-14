@@ -1,15 +1,20 @@
 package de.linkl.Main;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Objects;
 
 public class Window extends JFrame implements ActionListener {
 
     private final Dimension dimension;
+    BufferedImage icon;
 
     private JButton start;
     private JButton settings;
@@ -18,6 +23,11 @@ public class Window extends JFrame implements ActionListener {
     public Window(int width, int height, String title, Game game) {
 
         dimension = new Dimension(width, height);
+        try {
+            icon = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/de/linkl/Graphics/frameIcon.png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         this.setTitle(title);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -29,6 +39,8 @@ public class Window extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setFocusable(true);
         this.requestFocus();
+        this.setIconImage(icon);
+
         this.setPreferredSize(dimension);
         this.setMaximumSize(dimension);
         this.setMinimumSize(dimension);
@@ -39,6 +51,7 @@ public class Window extends JFrame implements ActionListener {
 
         game.start();
     }
+
     public Window(int width, int height, String title) {
 
         dimension = new Dimension(width, height);
