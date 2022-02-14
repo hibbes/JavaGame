@@ -47,10 +47,10 @@ public class Coin extends GameObject {
     }
     public void loadSprites () {
         try {
-            BufferedImage fullImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/de/linkl/Graphics/entity/coin/coin.png")));
-            spinCoin = new BufferedImage[6];
+            BufferedImage fullImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/de/linkl/Graphics/entity/coin/coinVersion2.png")));
+            spinCoin = new BufferedImage[14];
 
-            for (int i=0; i<6; i++) {
+            for (int i=0; i<14; i++) {
                 spinCoin[i] = fullImage.getSubimage(i * 32, 0, 32, 32);
             }
         } catch (IOException e) {

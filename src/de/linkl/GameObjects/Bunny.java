@@ -25,11 +25,11 @@ public class Bunny extends GameObject{
         this.speedX = 3;
         this.facingRight = false;
         this.alive = true;
+        showHitbox = true;
         loadSprites();
         animationHandler = new AnimationHandler();
         animationHandler.setAnimation(runLeft);
         animationHandler.setDelay(40);
-
     }
 
     @Override
@@ -77,7 +77,7 @@ public class Bunny extends GameObject{
         return new Rectangle(x + (width / 6), y + (height / 2), width - (width / 3), height - (height / 2));
     }
     public Rectangle getBoundsTop() {
-        return new Rectangle(x + (width / 6), y, width - (width / 3), height - (height / 2));
+        return new Rectangle(x + (width / 6), y + (height/4), width - (width / 3), height - (height / 2));
     }
     public Rectangle getBoundsRight() {
         return new Rectangle(x + (width - (width / 10)), y + (height / 4), width / 10, height - (height / 2));

@@ -86,7 +86,7 @@ public class Bee extends GameObject{
 
     @Override
     public Rectangle getTotalBounds() {
-        return new Rectangle(x,y,width,height);
+        return new Rectangle(x,y,width,height-(height/4));
     }
 
     public void loadSprites() {

@@ -170,6 +170,12 @@ public class Player extends GameObject {
                 }
             }
 
+            if (tempObject.getId() == ObjectID.BEE) {
+                if (getTotalBounds().intersects(tempObject.getTotalBounds())) {
+                    x = startX;
+                }
+            }
+
             if (tempObject.getId() == ObjectID.COIN) {
                 if(getTotalBounds().intersects(tempObject.getTotalBounds())) {
                     tempObject.setAlive(false);
