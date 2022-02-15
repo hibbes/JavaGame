@@ -17,14 +17,14 @@ public class Coin extends GameObject {
     public Coin(int x, int y, ObjectID id) {
         super(x, y, id);
         this.id = ObjectID.COIN;
-        this.width = 25;
-        this.height = 25;
+        this.width = 16;
+        this.height = 16;
         this.alive = true;
-        this.scale = 0.75;
+
         loadSprites();
         animationHandler = new AnimationHandler();
         animationHandler.setAnimation(spinCoin);
-        animationHandler.setDelay(120);
+        animationHandler.setDelay(60);
     }
 
     @Override
