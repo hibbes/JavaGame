@@ -41,6 +41,7 @@ public abstract class GameObject {
     public abstract void render(Graphics g);                                                // Definiert wie das Object dargestellt werden soll
     public abstract void tick(LinkedList<GameObject>objects);                               // Definiert, was das Object bei jedem Tick macht
     public abstract Rectangle getTotalBounds();                                                  // Definiert die gesamte Hitbox des Objects
+    public abstract Rectangle getBoundsTop();
 
     public int getX() {
         return x;

@@ -32,6 +32,11 @@ public class Coin extends GameObject {
         return new Rectangle(x, y, width, height);
     }
 
+    @Override
+    public Rectangle getBoundsTop() {
+        return null;
+    }
+
 
     @Override
     public void render(Graphics g) {
