@@ -139,4 +139,9 @@ public class Tile extends GameObject {
     public Rectangle getTotalBounds() {
         return new Rectangle(x, y, getWidth(), getHeight());
     }
+
+    @Override
+    public Rectangle getBoundsTop() {
+        return null;
+    }
 }

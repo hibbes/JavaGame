@@ -183,6 +183,20 @@ public class Player extends GameObject {
                     CoinHandler.collectedCoins++;
                 }
             }
+
+            if (tempObject.getId() == ObjectID.MUSHROOM) {
+                if(getBoundsTop().intersects(tempObject.getBoundsTop())) {
+                    speedY = -18;
+                    jumping = true;
+
+                    if (facingRight) {
+                        animationHandler.setAnimation(jumpRight);
+                    } else {
+                        animationHandler.setAnimation(jumpLeft);
+                    }
+                    animationHandler.setDelay(-1);
+                }
+            }
         }
     }
 

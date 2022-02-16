@@ -126,6 +126,8 @@ public class LevelLoader {
                         objectHandler.addObject(new Coin(nr * 32, row * 32, ObjectID.COIN));
                     } else if (object == 99) {
                         objectHandler.addObject(new Bunny(nr * 32, row * 32, ObjectID.ENEMY));
+                    } else if (object == 96) {
+                        objectHandler.addObject(new Mushroom(nr * 32, row * 32, ObjectID.MUSHROOM));
                     }
                 }
 

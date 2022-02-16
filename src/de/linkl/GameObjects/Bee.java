@@ -89,6 +89,11 @@ public class Bee extends GameObject{
         return new Rectangle(x,y,width,height-(height/4));
     }
 
+    @Override
+    public Rectangle getBoundsTop() {
+        return null;
+    }
+
     public void loadSprites() {
         try {
             BufferedImage[] fullImage = new BufferedImage[2];

@@ -40,4 +40,9 @@ public class FloatingIsland extends GameObject {
     public Rectangle getTotalBounds() {
         return null;
     }
+
+    @Override
+    public Rectangle getBoundsTop() {
+        return null;
+    }
 }

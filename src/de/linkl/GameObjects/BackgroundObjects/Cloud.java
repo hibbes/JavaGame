@@ -51,4 +51,9 @@ public class Cloud extends GameObject {
         return null;
     }
 
+    @Override
+    public Rectangle getBoundsTop() {
+        return null;
+    }
+
 }
