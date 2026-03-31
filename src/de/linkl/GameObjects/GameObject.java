@@ -6,25 +6,74 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
+/**
+ * GameObject.java  –  JavaGame / de.linkl.GameObjects
+ *
+ * Abstrakte Basisklasse für alle Spielobjekte:
+ * Spieler, Gegner (Bee, Bunny, Mushroom…), Tiles (Boden, Plattformen), Münzen.
+ *
+ * ──────────────────────────────────────────────────────────────────────────────
+ * Vererbungshierarchie (Beispiel):
+ *
+ *   GameObject (abstrakt)
+ *     ├── Player
+ *     ├── Bee, Bunny, Mushroom (Gegner)
+ *     ├── Tile (Kacheln)
+ *     └── Coin
+ *
+ * ──────────────────────────────────────────────────────────────────────────────
+ * Template-Method-Pattern:
+ * Die abstrakte Klasse definiert den Rahmen (tick/render/getBounds),
+ * konkrete Unterklassen füllen ihn mit spezifischem Verhalten.
+ * Der ObjectHandler ruft tick() und render() für jedes Objekt auf –
+ * ohne wissen zu müssen, welche konkrete Klasse dahintersteckt (Polymorphismus).
+ *
+ * ──────────────────────────────────────────────────────────────────────────────
+ * Physik:
+ *   Gravitation: speedY += g (0.6f) pro Tick
+ *   Maximale Fallgeschwindigkeit: 20 Pixel/Tick
+ *   Kacheln-Kollision: getTotalBounds() / getBoundsTop() geben Hitbox zurück
+ *
+ * ──────────────────────────────────────────────────────────────────────────────
+ * Koordinatensystem:
+ *   (0,0) ist oben links. x wächst nach rechts, y wächst nach unten.
+ *   speedX > 0 = Bewegung nach rechts, speedY > 0 = Bewegung nach unten (Fallen).
+ */
 public abstract class GameObject {
 
-    protected int x, y;
-    protected int width, height;
-    protected double scale = 1;
-    protected float speedX, speedY;
-    protected boolean alive;
-    protected boolean facingRight;
+    // ── Position und Größe ────────────────────────────────────────────────────
+    protected int x, y;            // Position oben links des Bounding Box
+    protected int width, height;   // Sprite-/Hitbox-Größe in Pixeln
 
-    protected final float g = 0.6f;                                          // Gravitationskonstante
-    protected final int maximumFallSpeed = 20;
-    protected boolean showHitbox = false;
+    // ── Physik ────────────────────────────────────────────────────────────────
+    protected double scale = 1;             // Skalierungsfaktor (für Sprites)
+    protected float speedX, speedY;         // Geschwindigkeit in Pixeln/Tick
+    protected final float g = 0.6f;         // Gravitationsbeschleunigung (Pixel/Tick²)
+    protected final int maximumFallSpeed = 20; // Maximale Fallgeschwindigkeit (Pixel/Tick)
 
+    // ── Zustand ───────────────────────────────────────────────────────────────
+    protected boolean alive       = true;   // false → wird aus der Objektliste entfernt
+    protected boolean facingRight = true;   // true = Sprite wird normal gezeichnet
+                                            // false = Sprite horizontal gespiegelt
+    protected boolean falling     = true;   // true, wenn das Objekt sich im freien Fall befindet
+    protected boolean jumping     = false;  // true während eines Sprungbogens
+
+    // ── Debug ──────────────────────────────────────────────────────────────────
+    protected boolean showHitbox = false;   // true → Hitbox sichtbar zeichnen (Debugging)
+
+    // ── Identifikation ────────────────────────────────────────────────────────
+    /** Typ des Objekts – z.B. PLAYER, BEE, TILE (aus ObjectID-Enum) */
     protected ObjectID id;
 
-
-    protected boolean falling = true;
-    protected boolean jumping = false;
-
+    /**
+     * Vollständiger Konstruktor: Position, Größe und Typ.
+     *
+     * @param x       X-Position (Pixel)
+     * @param y       Y-Position (Pixel)
+     * @param width   Breite in Pixeln
+     * @param height  Höhe in Pixeln
+     * @param id      Objekttyp (aus {@link de.linkl.State.ObjectID})
+     */
     public GameObject(int x, int y, int width, int height, ObjectID id) {
         this.x = x;
         this.y = y;
@@ -33,97 +82,79 @@ public abstract class GameObject {
         this.id = id;
     }
 
+    /**
+     * Minimalkonstruktor: nur Position (für Objekte ohne feste Größe).
+     *
+     * @param x   X-Position
+     * @param y   Y-Position
+     * @param id  Objekttyp
+     */
     public GameObject(int x, int y, ObjectID id) {
         this.x = x;
         this.y = y;
     }
 
-    public abstract void render(Graphics g);                                                // Definiert wie das Object dargestellt werden soll
-    public abstract void tick(LinkedList<GameObject>objects);                               // Definiert, was das Object bei jedem Tick macht
-    public abstract Rectangle getTotalBounds();                                                  // Definiert die gesamte Hitbox des Objects
+    // ── Abstrakte Methoden (Template-Method-Pattern) ──────────────────────────
+
+    /**
+     * Zeichnet das Objekt auf das Graphics-Objekt.
+     * Wird 1× pro Frame durch den ObjectHandler aufgerufen.
+     *
+     * Typische Implementierung:
+     * <pre>
+     *   g.drawImage(sprite, x, y, width, height, null);
+     *   if (showHitbox) g.drawRect(x, y, width, height);
+     * </pre>
+     *
+     * @param g AWT-Graphics-Kontext des Spielfensters
+     */
+    public abstract void render(Graphics g);
+
+    /**
+     * Logik-Update: wird 60× pro Sekunde aufgerufen.
+     * Hier werden Bewegung, Physik, KI und Kollisionen berechnet.
+     *
+     * @param objects Liste aller Spielobjekte (für Kollisionsprüfung)
+     */
+    public abstract void tick(LinkedList<GameObject> objects);
+
+    /**
+     * Gibt die vollständige Hitbox (Bounding Rectangle) zurück.
+     * Wird für Kollisionserkennung mit Tiles und anderen Objekten genutzt.
+     *
+     * @return Rechteck, das das Objekt vollständig umschließt
+     */
+    public abstract Rectangle getTotalBounds();
+
+    /**
+     * Gibt die obere Teilhitbox zurück.
+     * Wird für Kollision von oben (z.B. Spieler landet auf Plattform) genutzt.
+     * Ermöglicht, dass der Spieler durch Plattformen von unten springen kann.
+     *
+     * @return Rechteck des oberen Teils des Objekts
+     */
     public abstract Rectangle getBoundsTop();
 
-    public int getX() {
-        return x;
-    }
+    // ── Getter und Setter ────────────────────────────────────────────────────
 
-    public int getY() {
-        return y;
-    }
+    /** @return X-Position des Objekts */
+    public int getX()           { return x; }
 
-    public int getWidth() {                                                                 // Bei der Abfrage von width und height sollten die get-Methoden verwendet
-        return width;                                                                       // werden, da die Bilder erst
-    }
+    /** @return Y-Position des Objekts */
+    public int getY()           { return y; }
 
-    public int getHeight() {
-        return height;
-    }
+    /** @return Typ des Objekts */
+    public ObjectID getId()     { return id; }
 
-    public ObjectID getId() {
-        return id;
-    }
+    /** @return true, wenn das Objekt noch aktiv ist */
+    public boolean isAlive()    { return alive; }
 
-    public boolean isFalling() {
-        return falling;
-    }
+    /** @param x neue X-Position */
+    public void setX(int x)     { this.x = x; }
 
-    public boolean isJumping() {
-        return jumping;
-    }
+    /** @param y neue Y-Position */
+    public void setY(int y)     { this.y = y; }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public void setId(ObjectID id) {
-        this.id = id;
-    }
-
-    public void setFalling(boolean falling) {
-        this.falling = falling;
-    }
-
-    public void setJumping(boolean jumping) {
-        this.jumping = jumping;
-    }
-
-    public double getScale() {
-        return scale;
-    }
-
-    public float getSpeedX() {
-        return speedX;
-    }
-
-    public float getSpeedY() {
-        return speedY;
-    }
-
-    public void setScale(double scale) {
-        this.scale = scale;
-    }
-
-    public void setSpeedX(float speedX) {
-        this.speedX = speedX;
-    }
-
-    public void setSpeedY(float speedY) {
-        this.speedY = speedY;
-    }
-
-    public void setAlive(boolean alive) {
-        this.alive = alive;
-    }
+    /** @param alive false → Objekt wird beim nächsten Tick entfernt */
+    public void setAlive(boolean alive) { this.alive = alive; }
 }
