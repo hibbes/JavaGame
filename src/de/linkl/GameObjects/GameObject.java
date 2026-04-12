@@ -135,6 +135,32 @@ public abstract class GameObject {
      */
     public abstract Rectangle getBoundsTop();
 
+    // ── Default-Teilhitboxen ─────────────────────────────────────────────────
+    //
+    // Viele Objekte (Tiles, Coins, Mushrooms, Background) brauchen keine
+    // richtungs­abhängige Kollisions­erkennung – für sie genügt die volle
+    // Hitbox. Damit `Player` und `Bunny` aber in ihrer Kollisionsschleife
+    // uneingeschränkt `tempObject.getBoundsBottom()` usw. aufrufen können,
+    // liefert GameObject hier sinnvolle Defaults zurück (das volle
+    // Bounding Rectangle). Player und Bunny überschreiben diese Methoden
+    // mit schmalen Teilhitboxen, um von oben/unten/links/rechts getroffene
+    // Seiten unterscheiden zu können.
+
+    /** @return untere Teilhitbox (Default: volle Hitbox) */
+    public Rectangle getBoundsBottom() {
+        return getTotalBounds();
+    }
+
+    /** @return rechte Teilhitbox (Default: volle Hitbox) */
+    public Rectangle getBoundsRight() {
+        return getTotalBounds();
+    }
+
+    /** @return linke Teilhitbox (Default: volle Hitbox) */
+    public Rectangle getBoundsLeft() {
+        return getTotalBounds();
+    }
+
     // ── Getter und Setter ────────────────────────────────────────────────────
 
     /** @return X-Position des Objekts */
@@ -142,6 +168,12 @@ public abstract class GameObject {
 
     /** @return Y-Position des Objekts */
     public int getY()           { return y; }
+
+    /** @return Breite der Hitbox in Pixeln */
+    public int getWidth()       { return width; }
+
+    /** @return Höhe der Hitbox in Pixeln */
+    public int getHeight()      { return height; }
 
     /** @return Typ des Objekts */
     public ObjectID getId()     { return id; }

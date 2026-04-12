@@ -1,7 +1,5 @@
 package de.linkl.Handler;
 
-import javafx.animation.Animation;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
